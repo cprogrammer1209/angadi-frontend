@@ -1,0 +1,62 @@
+<div class="product-section">
+  <!-- Category Filter -->
+  <div class="category-filter">
+    <h3>Shop by Category</h3>
+    <div class="category-buttons">
+      <button 
+        *ngFor="let category of categories" 
+        class="category-btn"
+        [class.active]="selectedCategory === category"
+        (click)="filterByCategory(category)">
+        {{category}}
+      </button>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="products-container">
+    <h2 class="section-title">
+      {{selectedCategory === 'All' ? 'Featured Products' : selectedCategory}}
+      <span class="product-count">({{getFilteredProducts().length}} items)</span>
+    </h2>
+    
+    <div class="products-grid">
+      <div *ngFor="let product of getFilteredProducts()" class="product-card">
+        <div class="product-image">
+          <img [src]="product.image" [alt]="product.name" loading="lazy">
+          <div class="product-badge" *ngIf="product.originalPrice">
+            Save ${{(product.originalPrice - product.price).toFixed(2)}}
+          </div>
+          <div class="stock-status" [class.out-of-stock]="!product.inStock">
+            {{product.inStock ? 'In Stock' : 'Out of Stock'}}
+          </div>
+        </div>
+        
+        <div class="product-info">
+          <h3 class="product-name">{{product.name}}</h3>
+          
+          <div class="product-rating">
+            <div class="stars">
+              <span *ngFor="let star of getStarArray(product.rating)" 
+                    class="star" 
+                    [class.filled]="star">★</span>
+            </div>
+            <span class="rating-text">{{product.rating}} ({{product.reviews}} reviews)</span>
+          </div>
+          
+          <div class="product-price">
+            <span class="current-price">${{product.price}}</span>
+            <span *ngIf="product.originalPrice" class="original-price">${{product.originalPrice}}</span>
+          </div>
+          
+          <button 
+            class="add-to-cart-btn" 
+            [disabled]="!product.inStock"
+            (click)="addToCart(product)">
+            {{product.inStock ? 'Add to Cart' : 'Out of Stock'}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
