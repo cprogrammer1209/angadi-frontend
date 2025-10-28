@@ -1,1 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Import the color palette */
+@import './app/styles/color-palette.css';

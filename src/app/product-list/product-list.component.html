@@ -1,4 +1,12 @@
 <div class="product-section">
+  <!-- Guest Welcome Banner -->
+  <div class="guest-banner" *ngIf="!isAuthenticated">
+    <div class="banner-content">
+      <h3>Welcome to Our Store! 👋</h3>
+      <p>Browse our amazing products. <a (click)="router.navigate(['/login'])" class="banner-login-link">Sign in</a> for personalized recommendations, faster checkout, and exclusive deals!</p>
+    </div>
+  </div>
+
   <!-- Category Filter -->
   <div class="category-filter">
     <h3>Shop by Category</h3>
@@ -49,12 +57,41 @@
             <span *ngIf="product.originalPrice" class="original-price">${{product.originalPrice}}</span>
           </div>
           
-          <button 
-            class="add-to-cart-btn" 
-            [disabled]="!product.inStock"
-            (click)="addToCart(product)">
-            {{product.inStock ? 'Add to Cart' : 'Out of Stock'}}
-          </button>
+          <div class="product-actions">
+            <button 
+              class="add-to-cart-btn" 
+              [disabled]="!product.inStock"
+              (click)="addToCart(product)"
+              [title]="!isAuthenticated ? 'Sign in to add to cart' : 'Add to cart'">
+              <span class="btn-icon">🛒</span>
+              {{product.inStock ? 'Add to Cart' : 'Out of Stock'}}
+            </button>
+            
+            <div class="secondary-actions" *ngIf="product.inStock">
+              <button 
+                class="buy-now-btn"
+                (click)="buyNow(product)"
+                [title]="!isAuthenticated ? 'Sign in to buy now' : 'Buy now'">
+                <span class="btn-icon">⚡</span>
+                Buy Now
+              </button>
+              
+              <button 
+                class="wishlist-btn"
+                (click)="addToWishlist(product)"
+                [title]="!isAuthenticated ? 'Sign in to add to wishlist' : 'Add to wishlist'">
+                <span class="btn-icon">❤️</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Authentication prompt for guest users -->
+          <div class="auth-prompt" *ngIf="!isAuthenticated">
+            <small>
+              <a (click)="router.navigate(['/login'])" class="login-link">Sign in</a> 
+              for personalized recommendations and faster checkout
+            </small>
+          </div>
         </div>
       </div>
     </div>

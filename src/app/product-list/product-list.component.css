@@ -4,6 +4,38 @@
   padding: 2rem 1rem;
 }
 
+.guest-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.banner-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.banner-content p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.banner-login-link {
+  color: #ffd700;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.banner-login-link:hover {
+  color: #ffed4e;
+}
+
 .category-filter {
   margin-bottom: 2rem;
 }
@@ -173,25 +205,118 @@
   text-decoration: line-through;
 }
 
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .add-to-cart-btn {
   width: 100%;
   padding: 0.75rem;
   background: #ff9900;
   color: white;
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
 }
 
 .add-to-cart-btn:hover:not(:disabled) {
   background: #e68900;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
 }
 
 .add-to-cart-btn:disabled {
   background: #ccc;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.secondary-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.buy-now-btn {
+  flex: 1;
+  padding: 0.6rem;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.buy-now-btn:hover {
+  background: #219a52;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.wishlist-btn {
+  padding: 0.6rem;
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+}
+
+.wishlist-btn:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+  color: #495057;
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+.auth-prompt {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.auth-prompt small {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+.login-link {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {

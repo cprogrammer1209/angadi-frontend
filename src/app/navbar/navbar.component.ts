@@ -1,47 +1,67 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService, User } from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
   cartCount = 0;
-  userName = 'Yuvaraj Angadi'; // Default fallback name
+  currentUser: User | null = null;
+  isAuthenticated = false;
+  showUserMenu = false;
 
-  constructor(private http: HttpClient,private cdRef: ChangeDetectorRef,) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.fetchUserName();
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+    });
+
+    this.authService.isAuthenticated$.subscribe(isAuth => {
+      this.isAuthenticated = isAuth;
+    });
   }
 
- 
+  toggleUserMenu(): void {
+    this.showUserMenu = !this.showUserMenu;
+  }
 
-  private fetchUserName() {
-    this.http.get<any>('https://api.cprogrammer1209.shop/user/test')
-      .subscribe({
-        next: (response) => {
-          // Assuming the API returns an object with a name property
-          // Adjust this based on the actual API response structure
-          console.log('API response:', response);
-          if (response && response.name) {
-            this.userName = response.name;
-          }
-          console.log('Fetched user name from API:', this.userName);
+  logout(): void {
+    this.authService.logout();
+    this.showUserMenu = false;
+    this.router.navigate(['/login']);
+  }
 
-          this.cdRef.detectChanges();
-        },
-        error: (error) => {
-          console.log('API not available, using fallback name:', this.userName);
-          // userName already set to fallback value
-        }
-      });
+  navigateToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 
-    // this.userName = "Vendadi"
+  handleCartClick(): void {
+    if (!this.isAuthenticated) {
+      // Show a message or redirect to login for checkout
+      if (confirm('Please sign in to proceed with checkout. Would you like to sign in now?')) {
+        this.router.navigate(['/login']);
+      }
+    } else {
+      // Navigate to cart page (implement as needed)
+      console.log('Navigate to cart');
+    }
+  }
+
+  // Close user menu when clicking outside
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-menu-container')) {
+      this.showUserMenu = false;
+    }
   }
 }

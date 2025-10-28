@@ -1,0 +1,158 @@
+/* Color Palette for Angular E-commerce Application */
+/* This file defines the consistent color scheme used throughout the application */
+
+:root {
+  /* Primary Colors - Main brand colors */
+  --primary-blue: #667eea;
+  --primary-blue-dark: #5a67d8;
+  --primary-purple: #764ba2;
+  --primary-orange: #ff9900;
+  --primary-orange-light: #ffb84d;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+
+  /* Neutral Colors - Grays and backgrounds */
+  --neutral-white: #ffffff;
+  --neutral-gray-50: #f8f9fa;
+  --neutral-gray-100: #f7fafc;
+  --neutral-gray-200: #e2e8f0;
+  --neutral-gray-300: #cbd5e0;
+  --neutral-gray-400: #a0aec0;
+  --neutral-gray-500: #718096;
+  --neutral-gray-600: #4a5568;
+  --neutral-gray-700: #374151;
+  --neutral-gray-800: #1a202c;
+  --neutral-gray-900: #232f3e;
+
+  /* Text Colors */
+  --text-primary: #1a202c;
+  --text-secondary: #374151;
+  --text-muted: #718096;
+  --text-light: #a0aec0;
+  --text-white: #ffffff;
+  --text-dark: #333333;
+
+  /* Status Colors */
+  --success-green: #38a169;
+  --success-green-light: #68d391;
+  --success-green-bg: #f0fff4;
+  
+  --error-red: #e53e3e;
+  --error-red-light: #fc8181;
+  --error-red-bg: #fed7d7;
+  --error-red-border: #feb2b2;
+  --error-red-dark: #c53030;
+  
+  --warning-yellow: #d69e2e;
+  --warning-yellow-light: #f6e05e;
+  --warning-yellow-bg: #fffbeb;
+  
+  --info-blue: #3182ce;
+  --info-blue-light: #63b3ed;
+  --info-blue-bg: #ebf8ff;
+
+  /* Background Colors */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-dark: #232f3e;
+  --bg-card: #ffffff;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Border Colors */
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e0;
+  --border-dark: #a0aec0;
+  --border-focus: #667eea;
+  --border-error: #e53e3e;
+
+  /* Shadow Colors */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-button: 0 8px 25px rgba(102, 126, 234, 0.3);
+
+  /* Focus Colors */
+  --focus-ring-primary: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  --focus-ring-error: 0 0 0 3px rgba(229, 62, 62, 0.1);
+
+  /* Hover States */
+  --hover-overlay-light: rgba(255, 255, 255, 0.1);
+  --hover-overlay-dark: rgba(0, 0, 0, 0.05);
+
+  /* Component Specific Colors */
+  --navbar-bg: #232f3e;
+  --navbar-brand: #ff9900;
+  --navbar-brand-hover: #ffb84d;
+  --navbar-text: #ffffff;
+  --navbar-link-hover: rgba(255, 255, 255, 0.1);
+
+  --button-primary-bg: var(--gradient-primary);
+  --button-primary-hover: var(--gradient-primary-hover);
+  --button-secondary-bg: #ff9900;
+  --button-secondary-hover: #ffb84d;
+
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --input-border-focus: #667eea;
+  --input-border-error: #e53e3e;
+  --input-placeholder: #a0aec0;
+
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --card-shadow: var(--shadow-card);
+
+  /* Animation Durations */
+  --transition-fast: 0.15s;
+  --transition-normal: 0.2s;
+  --transition-slow: 0.3s;
+
+  /* Z-index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* Dark mode support (optional - can be implemented later) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1a202c;
+    --bg-secondary: #2d3748;
+    --bg-card: #2d3748;
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #a0aec0;
+    --border-light: #4a5568;
+    --border-medium: #718096;
+  }
+}
+
+/* Utility classes for quick color application */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-white { color: var(--text-white); }
+.text-error { color: var(--error-red); }
+.text-success { color: var(--success-green); }
+
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+.bg-white { background-color: var(--neutral-white); }
+.bg-dark { background-color: var(--bg-dark); }
+
+.border-light { border-color: var(--border-light); }
+.border-focus { border-color: var(--border-focus); }
+.border-error { border-color: var(--border-error); }
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-card { box-shadow: var(--shadow-card); }

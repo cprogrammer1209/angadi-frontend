@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 interface Product {
   id: number;
@@ -24,9 +26,20 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   categories = ['All', 'Electronics', 'Clothing', 'Books', 'Home & Garden', 'Sports'];
   selectedCategory = 'All';
+  isAuthenticated = false;
+
+  constructor(
+    private authService: AuthService,
+    public router: Router
+  ) {}
 
   ngOnInit() {
     this.loadProducts();
+    
+    // Subscribe to authentication status
+    this.authService.isAuthenticated$.subscribe(isAuth => {
+      this.isAuthenticated = isAuth;
+    });
   }
 
   loadProducts() {
@@ -117,7 +130,42 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
+    if (!this.isAuthenticated) {
+      // Prompt user to login
+      if (confirm(`Please sign in to add "${product.name}" to your cart. Would you like to sign in now?`)) {
+        this.router.navigate(['/login']);
+      }
+      return;
+    }
+    
     console.log('Added to cart:', product.name);
-    // Implement cart functionality
+    // TODO: Implement actual cart functionality for authenticated users
+    alert(`"${product.name}" has been added to your cart!`);
+  }
+
+  buyNow(product: Product) {
+    if (!this.isAuthenticated) {
+      if (confirm(`Please sign in to purchase "${product.name}". Would you like to sign in now?`)) {
+        this.router.navigate(['/login']);
+      }
+      return;
+    }
+    
+    console.log('Buy now:', product.name);
+    // TODO: Implement checkout functionality
+    alert(`Proceeding to checkout for "${product.name}"`);
+  }
+
+  addToWishlist(product: Product) {
+    if (!this.isAuthenticated) {
+      if (confirm(`Please sign in to add "${product.name}" to your wishlist. Would you like to sign in now?`)) {
+        this.router.navigate(['/login']);
+      }
+      return;
+    }
+    
+    console.log('Added to wishlist:', product.name);
+    // TODO: Implement wishlist functionality
+    alert(`"${product.name}" has been added to your wishlist!`);
   }
 }

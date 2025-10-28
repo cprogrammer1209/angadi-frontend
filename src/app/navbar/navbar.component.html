@@ -1,7 +1,7 @@
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-brand">
-      <h2>{{userName}}</h2>
+      <h2 routerLink="/">E-Commerce</h2>
     </div>
     
     <div class="nav-search">
@@ -10,11 +10,90 @@
     </div>
     
     <div class="nav-links">
-      <a href="#" class="nav-link">Home</a>
+      <a routerLink="/" class="nav-link">Home</a>
       <a href="#" class="nav-link">Categories</a>
       <a href="#" class="nav-link">Deals</a>
-      <a href="#" class="nav-link">Account</a>
-      <a href="#" class="nav-link cart">🛒 Cart ({{cartCount}})</a>
+      
+      <!-- Cart - Always visible but may require login for checkout -->
+      <button 
+        class="nav-link cart" 
+        (click)="handleCartClick()"
+        [title]="!isAuthenticated ? 'Login required for checkout' : 'View cart'"
+      >
+        🛒 Cart ({{cartCount}})
+      </button>
+      
+      <!-- Authentication Section -->
+      <div class="auth-section">
+        <!-- Not Authenticated -->
+        <button 
+          *ngIf="!isAuthenticated" 
+          (click)="navigateToLogin()" 
+          class="login-btn"
+        >
+          Sign In
+        </button>
+        
+        <!-- Authenticated User Menu -->
+        <div 
+          *ngIf="isAuthenticated" 
+          class="user-menu-container"
+          (click)="$event.stopPropagation()"
+        >
+          <button 
+            class="user-menu-trigger" 
+            (click)="toggleUserMenu()"
+            [attr.aria-expanded]="showUserMenu"
+            aria-haspopup="true"
+          >
+            <img 
+              *ngIf="currentUser?.avatar; else defaultAvatar" 
+              [src]="currentUser!.avatar" 
+              [alt]="currentUser!.name + ' avatar'"
+              class="user-avatar"
+            >
+            <ng-template #defaultAvatar>
+              <div class="default-avatar">
+                {{ currentUser?.name?.charAt(0)?.toUpperCase() || 'U' }}
+              </div>
+            </ng-template>
+            <span class="user-name">{{ currentUser?.name || 'User' }}</span>
+            <span class="dropdown-arrow" [class.rotated]="showUserMenu">▼</span>
+          </button>
+          
+          <div class="user-dropdown" *ngIf="showUserMenu">
+            <div class="user-info">
+              <div class="user-name-full">{{ currentUser?.name }}</div>
+              <div class="user-email">{{ currentUser?.email }}</div>
+            </div>
+            <hr class="dropdown-divider">
+            <a href="#" class="dropdown-item">
+              <span class="item-icon">👤</span>
+              Profile
+            </a>
+            <a href="#" class="dropdown-item">
+              <span class="item-icon">📦</span>
+              Orders
+            </a>
+            <a href="#" class="dropdown-item">
+              <span class="item-icon">⚙️</span>
+              Settings
+            </a>
+            <hr class="dropdown-divider">
+            <button class="dropdown-item logout-item" (click)="logout()">
+              <span class="item-icon">🚪</span>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
+
+<!-- Click outside to close menu -->
+<div 
+  *ngIf="showUserMenu" 
+  class="overlay" 
+  (click)="onDocumentClick($event)"
+></div>
